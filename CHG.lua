@@ -1,12 +1,4 @@
--- ======================================================
--- VIREX INTRO LOADER • EPIC MOBILE EDITION
--- The uploaded Virex Hub Intro source runs first.
--- ======================================================
-local VIREX_INTRO_SOURCE = [=[
--- ======================================================
---                 VIREX HUB - INTRO SCRIPT
---                 Theme: Minimalist Black & White
--- ======================================================
+local CHG_INTRO_SOURCE = [=[
 
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
@@ -28,7 +20,7 @@ local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 local GuiParent = (gethui and gethui()) or (syn and syn.protect_gui and PlayerGui) or PlayerGui
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "VirexHubIntro"
+ScreenGui.Name = "CHGHubIntro"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.IgnoreGuiInset = true
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -180,7 +172,7 @@ Status.AnchorPoint = Vector2.new(0.5, 0)
 Status.Position = UDim2.new(0.5, 0, 0.84, 0)
 Status.Size = UDim2.new(0.8, 0, 0, 14)
 Status.BackgroundTransparency = 1
-Status.Text = "Initializing Virex Hub..."
+Status.Text = "Initializing CHG Hub..."
 Status.TextColor3 = Color3.fromRGB(120, 120, 125)
 Status.TextTransparency = 1
 Status.Font = Enum.Font.Gotham
@@ -225,7 +217,7 @@ TweenService:Create(ProgressFill, TweenInfo.new(1.1, Enum.EasingStyle.Sine, Enum
 task.wait(1.1)
 
 -- 5. Complete Status
-Status.Text = "VIREX"
+Status.Text = "CHG"
 Status.TextColor3 = Color3.fromRGB(255, 255, 255)
 
 task.wait(0.7)
@@ -252,18 +244,18 @@ task.wait(0.45)
 ScreenGui:Destroy()
 
 -- ======================================================
---          PUT YOUR MAIN VIREX HUB UI SCRIPT BELOW
+--          PUT YOUR MAIN CHG HUB UI SCRIPT BELOW
 -- ======================================================
 -- Example:
 -- loadstring(game:HttpGet("YOUR_MAIN_HUB_SCRIPT_URL_HERE"))()
 
 ]=]
 
--- Replace this placeholder with the numeric asset ID after uploading the logo to Roblox.
-local ASSET_LOGO = "rbxassetid://YOUR_ROBLOX_IMAGE_ASSET_ID"
+-- CHG menu logo asset
+local ASSET_LOGO = "rbxassetid://133842491002442"
 
 --[[
-    VIREX SCRIPT HUB
+    CHG SCRIPT HUB
     Built from Steal_An_Egg_All_Scripts.txt
 
     Features:
@@ -283,35 +275,35 @@ local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 local SoundService = game:GetService("SoundService")
 
-local VirexSoundFolder = Instance.new("Folder")
-VirexSoundFolder.Name = "VirexSounds"
-VirexSoundFolder.Parent = SoundService
+local CHGSoundFolder = Instance.new("Folder")
+CHGSoundFolder.Name = "CHGSounds"
+CHGSoundFolder.Parent = SoundService
 
 -- One sound only: every click/option change produces exactly one immediate sound.
-local VirexClickSound = Instance.new("Sound")
-VirexClickSound.Name = "VirexClick"
-VirexClickSound.SoundId = "rbxassetid://6026984224"
-VirexClickSound.Volume = 0.30
-VirexClickSound.Parent = VirexSoundFolder
+local CHGClickSound = Instance.new("Sound")
+CHGClickSound.Name = "CHGClick"
+CHGClickSound.SoundId = "rbxassetid://6026984224"
+CHGClickSound.Volume = 0.30
+CHGClickSound.Parent = CHGSoundFolder
 
-local function VirexPlayClick(speed, volume)
+local function CHGPlayClick(speed, volume)
     pcall(function()
-        VirexClickSound:Stop()
-        VirexClickSound.TimePosition = 0
-        VirexClickSound.PlaybackSpeed = speed or 1
-        VirexClickSound.Volume = volume or 0.30
-        VirexClickSound:Play()
+        CHGClickSound:Stop()
+        CHGClickSound.TimePosition = 0
+        CHGClickSound.PlaybackSpeed = speed or 1
+        CHGClickSound.Volume = volume or 0.30
+        CHGClickSound:Play()
     end)
 end
 
-local function VirexPlayExecute()
-    VirexPlayClick(1.18, 0.34)
+local function CHGPlayExecute()
+    CHGPlayClick(1.18, 0.34)
 end
 
 local Player = Players.LocalPlayer
 local PlayerGui = Player:WaitForChild("PlayerGui")
 
-local old = PlayerGui:FindFirstChild("Virex")
+local old = PlayerGui:FindFirstChild("CHG")
 if old then
     old:Destroy()
 end
@@ -319,11 +311,11 @@ end
 local Scripts = {}
 
 local Themes = {
-    {Name = "Virex Red", Main = Color3.fromRGB(8, 16, 30), Panel = Color3.fromRGB(13, 27, 46), Accent = Color3.fromRGB(255, 72, 72), ButtonDark = Color3.fromRGB(95, 8, 18)},
-    {Name = "Virex Purple", Main = Color3.fromRGB(18, 17, 25), Panel = Color3.fromRGB(27, 24, 36), Accent = Color3.fromRGB(160, 100, 255), ButtonDark = Color3.fromRGB(72, 35, 120)},
-    {Name = "Virex Blue", Main = Color3.fromRGB(15, 19, 26), Panel = Color3.fromRGB(23, 29, 40), Accent = Color3.fromRGB(75, 145, 255), ButtonDark = Color3.fromRGB(18, 55, 105)},
-    {Name = "Virex Gold", Main = Color3.fromRGB(22, 20, 16), Panel = Color3.fromRGB(31, 28, 21), Accent = Color3.fromRGB(255, 190, 65), ButtonDark = Color3.fromRGB(105, 72, 12)},
-    {Name = "Virex Green", Main = Color3.fromRGB(15, 22, 19), Panel = Color3.fromRGB(22, 32, 27), Accent = Color3.fromRGB(75, 220, 135), ButtonDark = Color3.fromRGB(18, 92, 55)},
+    {Name = "CHG Red", Main = Color3.fromRGB(8, 16, 30), Panel = Color3.fromRGB(13, 27, 46), Accent = Color3.fromRGB(255, 72, 72), ButtonDark = Color3.fromRGB(95, 8, 18)},
+    {Name = "CHG Purple", Main = Color3.fromRGB(18, 17, 25), Panel = Color3.fromRGB(27, 24, 36), Accent = Color3.fromRGB(160, 100, 255), ButtonDark = Color3.fromRGB(72, 35, 120)},
+    {Name = "CHG Blue", Main = Color3.fromRGB(15, 19, 26), Panel = Color3.fromRGB(23, 29, 40), Accent = Color3.fromRGB(75, 145, 255), ButtonDark = Color3.fromRGB(18, 55, 105)},
+    {Name = "CHG Gold", Main = Color3.fromRGB(22, 20, 16), Panel = Color3.fromRGB(31, 28, 21), Accent = Color3.fromRGB(255, 190, 65), ButtonDark = Color3.fromRGB(105, 72, 12)},
+    {Name = "CHG Green", Main = Color3.fromRGB(15, 22, 19), Panel = Color3.fromRGB(22, 32, 27), Accent = Color3.fromRGB(75, 220, 135), ButtonDark = Color3.fromRGB(18, 92, 55)},
 }
 
 local ThemeIndex = 1
@@ -341,7 +333,7 @@ local function tween(obj, info, props)
 end
 
 local gui = Instance.new("ScreenGui")
-gui.Name = "Virex"
+gui.Name = "CHG"
 gui.ResetOnSpawn = false
 gui.IgnoreGuiInset = true
 gui.DisplayOrder = 9999
@@ -391,6 +383,7 @@ top.Name = "TopBar"
 top.Size = UDim2.new(1, 0, 0, 55)
 top.BackgroundTransparency = 1
 top.Parent = main
+
 local menuLogo = Instance.new("ImageLabel")
 menuLogo.Name = "MenuLogo"
 menuLogo.Position = UDim2.fromOffset(14, 9)
@@ -408,7 +401,7 @@ title.BackgroundTransparency = 1
 title.Position = UDim2.fromOffset(74, 3)
 title.Size = UDim2.new(1, -148, 0, 28)
 title.Font = Enum.Font.FredokaOne
-title.Text = "VIREX"
+title.Text = "CHG"
 title.TextSize = 22
 title.TextXAlignment = Enum.TextXAlignment.Center
 title.TextColor3 = Color3.new(1,1,1)
@@ -419,19 +412,19 @@ titleGradient.Rotation = 0
 titleGradient.Offset = Vector2.new(1.2, 0)
 titleGradient.Parent = title
 
-local VirexRed = Color3.fromRGB(255, 72, 72)
-local VirexWhite = Color3.fromRGB(255, 255, 255)
+local CHGRed = Color3.fromRGB(255, 72, 72)
+local CHGWhite = Color3.fromRGB(255, 255, 255)
 
--- VIREX: seamless red -> white -> red -> white.
+-- CHG: seamless red -> white -> red -> white.
 -- Both ends are red so the loop can restart without a visible red snap.
 titleGradient.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0.00, VirexRed),
-    ColorSequenceKeypoint.new(0.18, VirexRed),
-    ColorSequenceKeypoint.new(0.34, VirexWhite),
-    ColorSequenceKeypoint.new(0.50, VirexRed),
-    ColorSequenceKeypoint.new(0.66, VirexRed),
-    ColorSequenceKeypoint.new(0.82, VirexWhite),
-    ColorSequenceKeypoint.new(1.00, VirexRed)
+    ColorSequenceKeypoint.new(0.00, CHGRed),
+    ColorSequenceKeypoint.new(0.18, CHGRed),
+    ColorSequenceKeypoint.new(0.34, CHGWhite),
+    ColorSequenceKeypoint.new(0.50, CHGRed),
+    ColorSequenceKeypoint.new(0.66, CHGRed),
+    ColorSequenceKeypoint.new(0.82, CHGWhite),
+    ColorSequenceKeypoint.new(1.00, CHGRed)
 })
 
 task.spawn(function()
@@ -481,7 +474,7 @@ local close = topButton("×", -8)
 -- Dedicated drag line OUTSIDE the main GUI, slightly below it.
 -- It follows the whole window and remains available while the GUI is open.
 local dragHandle = Instance.new("TextButton")
-dragHandle.Name = "VirexDragHandle"
+dragHandle.Name = "CHGDragHandle"
 dragHandle.AnchorPoint = Vector2.new(0.5, 0.5)
 dragHandle.Size = UDim2.fromOffset(110, 16)
 dragHandle.BackgroundColor3 = Color3.fromRGB(235, 235, 240)
@@ -513,7 +506,7 @@ dragCorner.Parent = dragHandle
 
 -- Bottom-right resize handle. It stays OUTSIDE the GUI and follows it exactly.
 local resizeHandle = Instance.new("TextButton")
-resizeHandle.Name = "VirexResizeHandle"
+resizeHandle.Name = "CHGResizeHandle"
 resizeHandle.AnchorPoint = Vector2.new(0.5, 0.5)
 resizeHandle.Size = UDim2.fromOffset(30, 30)
 resizeHandle.BackgroundTransparency = 1
@@ -739,11 +732,11 @@ local function switchTab(tab)
     refreshTabs()
 end
 
-scriptsTab.Activated:Connect(function() VirexPlayClick(); switchTab("Scripts") end)
-configTab.Activated:Connect(function() VirexPlayClick(); switchTab("Config") end)
+scriptsTab.Activated:Connect(function() CHGPlayClick(); switchTab("Scripts") end)
+configTab.Activated:Connect(function() CHGPlayClick(); switchTab("Config") end)
 
 local function execute(code, button)
-    VirexPlayExecute()
+    CHGPlayExecute()
     local oldText = button.Text
     button.Text = "LOADING..."
     task.spawn(function()
@@ -751,11 +744,11 @@ local function execute(code, button)
         if ok and type(fnOrErr) == "function" then
             task.spawn(function()
                 local ran, err = pcall(fnOrErr)
-                if not ran then warn("[Virex] Script error:", err) end
+                if not ran then warn("[CHG] Script error:", err) end
             end)
             button.Text = "EXECUTED ✓"
         else
-            warn("[Virex] Load error:", fnOrErr)
+            warn("[CHG] Load error:", fnOrErr)
             button.Text = "ERROR"
         end
         task.wait(0.8)
@@ -860,9 +853,9 @@ local function addScriptCard(parent, name, code)
 end
 
 -- ============================================================
--- VIREX ANTI-HIT
+-- CHG ANTI-HIT
 -- Replaced the old script library with the Anti-Hit feature.
--- Route logic is based on the supplied VIREX Anti-Hit source.
+-- Route logic is based on the supplied CHG Anti-Hit source.
 -- ============================================================
 
 local ProximityPromptService = game:GetService("ProximityPromptService")
@@ -926,7 +919,7 @@ AntiHitPositiveSound.Name = "AntiHitEnabledSound"
 AntiHitPositiveSound.SoundId = "rbxassetid://6026984224"
 AntiHitPositiveSound.Volume = 0.42
 AntiHitPositiveSound.PlaybackSpeed = 1.25
-AntiHitPositiveSound.Parent = VirexSoundFolder
+AntiHitPositiveSound.Parent = CHGSoundFolder
 
 local antiHitSweepToken = 0
 local function startAntiHitVisual(enabled)
@@ -994,7 +987,7 @@ end
 antiHitCard.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         -- Sound and visual state begin on the exact press, not on release.
-        VirexPlayClick(1.0, 0.30)
+        CHGPlayClick(1.0, 0.30)
         AntiHitEnabled = not AntiHitEnabled
         setAntiHitVisual(AntiHitEnabled)
     end
@@ -1075,12 +1068,12 @@ local function setSize(index)
     task.defer(updateDragHandlePosition)
 end
 
-sizeMinus.Activated:Connect(function() VirexPlayClick(); setSize(SizeIndex - 1) end)
-sizePlus.Activated:Connect(function() VirexPlayClick(); setSize(SizeIndex + 1) end)
+sizeMinus.Activated:Connect(function() CHGPlayClick(); setSize(SizeIndex - 1) end)
+sizePlus.Activated:Connect(function() CHGPlayClick(); setSize(SizeIndex + 1) end)
 
 configLabel("COLOR")
 
-local colorButton = configButton("Choose Color • Virex Red")
+local colorButton = configButton("Choose Color • CHG Red")
 
 local colorPopup = Instance.new("Frame")
 colorPopup.Name = "ColorPicker"
@@ -1099,7 +1092,7 @@ local function applyTheme(index)
     ThemeIndex = index
     local th = Themes[ThemeIndex]
     colorButton.Text = "Choose Color • " .. th.Name
-    -- Keep the VIREX title's own animated red/lilac sweep; theme changes do not reset it.
+    -- Keep the CHG title's own animated red/lilac sweep; theme changes do not reset it.
     tween(main, TweenInfo.new(0.2), {BackgroundColor3 = th.Main})
     tween(stroke, TweenInfo.new(0.2), {Color = th.Accent})
     dragVisual.BackgroundColor3 = th.Accent
@@ -1180,7 +1173,7 @@ for i, th in ipairs(Themes) do
     bc.CornerRadius = UDim.new(0, 8)
     bc.Parent = b
     b.Activated:Connect(function()
-        VirexPlayClick()
+        CHGPlayClick()
         applyTheme(i)
         tween(colorPopup, TweenInfo.new(0.16, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {Size = UDim2.new(1, -8, 0, 0)})
     end)
@@ -1188,7 +1181,7 @@ end
 
 local colorsOpen = false
 colorButton.Activated:Connect(function()
-    VirexPlayClick()
+    CHGPlayClick()
     colorsOpen = not colorsOpen
     local h = colorsOpen and 5 * 34 + 4 * 6 or 0
     tween(colorPopup, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {Size = UDim2.new(1, -8, 0, h)})
@@ -1196,7 +1189,7 @@ end)
 
 configLabel("WINDOW")
 
-local closeInfo = configButton("Close / Reopen: X or the Virex button")
+local closeInfo = configButton("Close / Reopen: X or the CHG button")
 closeInfo.TextColor3 = Color3.fromRGB(145,145,155)
 
 local dragging = false
@@ -1280,7 +1273,7 @@ resizeHandle.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1
     or input.UserInputType == Enum.UserInputType.Touch then
         resizeDragging = true
-        VirexPlayClick()
+        CHGPlayClick()
         resizeStartInput = input.Position
         resizeStartSize = main.Size
     end
@@ -1320,7 +1313,7 @@ end)
 
 -- Floating circular VX button shown after minimizing/closing.
 local openButton = Instance.new("TextButton")
-openButton.Name = "OpenVirex"
+openButton.Name = "OpenCHG"
 openButton.AnchorPoint = Vector2.new(1, 0.5)
 openButton.Position = UDim2.new(1, -18, 0.5, 0)
 openButton.Size = UDim2.fromOffset(64, 64)
@@ -1427,7 +1420,7 @@ end
 local minimized = false
 local savedSize = main.Size
 
-close.Activated:Connect(function() VirexPlayClick(); closeGui() end)
+close.Activated:Connect(function() CHGPlayClick(); closeGui() end)
 local vxDragging = false
 local vxDragStart
 local vxStartPos
@@ -1451,7 +1444,7 @@ UIS.InputEnded:Connect(function(input)
 end)
 
 openButton.Activated:Connect(function()
-    VirexPlayClick()
+    CHGPlayClick()
     if minimized then
         minimized = false
         openButton.Visible = false
@@ -1484,7 +1477,7 @@ RunService.RenderStepped:Connect(function()
 end)
 
 minimize.Activated:Connect(function()
-    VirexPlayClick()
+    CHGPlayClick()
     if minimized then
         minimized = false
         openButton.Visible = false
@@ -1535,7 +1528,7 @@ refreshTabs()
 
 -- ======================================================
 -- MOBILE-STYLE SUPPORT NOTIFICATION
--- Appears above VIREX after the intro and slides away smoothly.
+-- Appears above CHG after the intro and slides away smoothly.
 -- ======================================================
 local notification = Instance.new("Frame")
 notification.Name = "SupportNotification"
@@ -1611,7 +1604,7 @@ function showSupportNotification()
     updateNotificationPosition()
     notification.Visible = true
     -- One sound exactly when the notification becomes visible.
-    pcall(function() VirexPlaySound("click", 1.0, 0.30) end)
+    pcall(function() CHGPlaySound("click", 1.0, 0.30) end)
     notification.BackgroundTransparency = 1
     notificationText.TextTransparency = 1
     notificationStroke.Transparency = 1
@@ -1640,7 +1633,7 @@ end
 
 -- ======================================================
 -- ONE-SCREEN INTRO -> MAIN GUI HANDOFF
--- The intro and VIREX hub use the SAME ScreenGui, so the
+-- The intro and CHG hub use the SAME ScreenGui, so the
 -- main GUI is not destroyed/recreated after the intro.
 -- ======================================================
 main.Visible = false
@@ -1650,7 +1643,7 @@ resizeHandle.Visible = false
 notification.Visible = false
 
 local intro = Instance.new("Frame")
-intro.Name = "VirexIntro"
+intro.Name = "CHGIntro"
 intro.Size = UDim2.fromScale(1, 1)
 intro.BackgroundColor3 = Color3.fromRGB(0,0,0)
 intro.BackgroundTransparency = 0.18
@@ -1671,9 +1664,9 @@ introBgGradient.Rotation = 0
 introBgGradient.Offset = Vector2.new(1.2,0)
 introBgGradient.Parent = intro
 
--- Subtle diagonal VIREX texture: clean, dark, cinematic, no external assets.
+-- Subtle diagonal CHG texture: clean, dark, cinematic, no external assets.
 local textureLayer = Instance.new("Frame")
-textureLayer.Name = "VirexTexture"
+textureLayer.Name = "CHGTexture"
 textureLayer.Size = UDim2.fromScale(1,1)
 textureLayer.BackgroundTransparency = 1
 textureLayer.ZIndex = 100
@@ -1728,7 +1721,7 @@ introTitle.BackgroundTransparency = 1
 introTitle.Size = UDim2.new(1,-20,0,45)
 introTitle.Position = UDim2.fromOffset(10,42)
 introTitle.Font = Enum.Font.GothamBlack
-introTitle.Text = "VIREX"
+introTitle.Text = "CHG"
 introTitle.TextSize = 34
 introTitle.TextColor3 = Color3.new(1,1,1)
 introTitle.ZIndex = 102
@@ -1756,7 +1749,7 @@ introStatus.BackgroundTransparency = 1
 introStatus.Size = UDim2.new(1,-30,0,18)
 introStatus.Position = UDim2.fromOffset(15,91)
 introStatus.Font = Enum.Font.FredokaOne
-introStatus.Text = "VIREX • INITIALIZING"
+introStatus.Text = "CHG • INITIALIZING"
 introStatus.TextSize = 10
 introStatus.TextColor3 = Color3.fromRGB(150,150,160)
 introStatus.ZIndex = 102
@@ -1801,14 +1794,14 @@ tween(introFill, TweenInfo.new(2.6, Enum.EasingStyle.Sine, Enum.EasingDirection.
 
 task.wait(0.55)
 task.wait(2.6)
-introStatus.Text = "VIREX • READY"
+introStatus.Text = "CHG • READY"
 task.wait(1.5)
 
 -- Fade the intro away while the MAIN GUI fades in underneath it.
 main.Visible = true
 shadow.Visible = true
 -- The main GUI sound happens at the exact frame the GUI becomes visible.
-VirexPlayClick(1.35,0.24)
+CHGPlayClick(1.35,0.24)
 mainScale.Scale = 0.78
 shadowScale.Scale = 0.78
 main.BackgroundTransparency = 0
