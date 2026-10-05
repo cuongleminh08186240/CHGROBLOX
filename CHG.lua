@@ -118,7 +118,7 @@ Title.BackgroundTransparency = 1
 Title.Text = "HELLO"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextTransparency = 1
-Title.Font = Enum.Font.FredokaOne
+Title.Font = Enum.Font.GothamMedium
 Title.TextSize = 20
 Title.Parent = Card
 
@@ -132,7 +132,7 @@ TelegramText.BackgroundTransparency = 1
 TelegramText.Text = "t.me/CHGPINGPRX • Link Copied"
 TelegramText.TextColor3 = Color3.fromRGB(160, 160, 165)
 TelegramText.TextTransparency = 1
-TelegramText.Font = Enum.Font.FredokaOne
+TelegramText.Font = Enum.Font.GothamMedium
 TelegramText.TextSize = 12
 TelegramText.Parent = Card
 
@@ -311,7 +311,7 @@ end
 local Scripts = {}
 
 local Themes = {
-    {Name = "CHG Red", Main = Color3.fromRGB(8, 16, 30), Panel = Color3.fromRGB(13, 27, 46), Accent = Color3.fromRGB(255, 72, 72), ButtonDark = Color3.fromRGB(95, 8, 18)},
+    {Name = "CHG Red", Main = Color3.fromRGB(18, 18, 20), Panel = Color3.fromRGB(30, 30, 33), Accent = Color3.fromRGB(255, 59, 48), ButtonDark = Color3.fromRGB(126, 30, 38)},
     {Name = "CHG Purple", Main = Color3.fromRGB(18, 17, 25), Panel = Color3.fromRGB(27, 24, 36), Accent = Color3.fromRGB(160, 100, 255), ButtonDark = Color3.fromRGB(72, 35, 120)},
     {Name = "CHG Blue", Main = Color3.fromRGB(15, 19, 26), Panel = Color3.fromRGB(23, 29, 40), Accent = Color3.fromRGB(75, 145, 255), ButtonDark = Color3.fromRGB(18, 55, 105)},
     {Name = "CHG Gold", Main = Color3.fromRGB(22, 20, 16), Panel = Color3.fromRGB(31, 28, 21), Accent = Color3.fromRGB(255, 190, 65), ButtonDark = Color3.fromRGB(105, 72, 12)},
@@ -355,7 +355,7 @@ shadow.BorderSizePixel = 0
 shadow.Parent = gui
 
 local shadowCorner = Instance.new("UICorner")
-shadowCorner.CornerRadius = UDim.new(0, 16)
+shadowCorner.CornerRadius = UDim.new(0, 20)
 shadowCorner.Parent = shadow
 
 local main = Instance.new("Frame")
@@ -363,19 +363,19 @@ main.Name = "Main"
 main.AnchorPoint = Vector2.new(0.5, 0.5)
 main.Position = UDim2.fromScale(0.5, 0.48)
 main.Size = Sizes[SizeIndex]
-main.BackgroundColor3 = Color3.fromRGB(8, 16, 30)
+main.BackgroundColor3 = Themes[ThemeIndex].Main
 main.BorderSizePixel = 0
 main.ClipsDescendants = true
 main.Parent = gui
 
 local mainCorner = Instance.new("UICorner")
-mainCorner.CornerRadius = UDim.new(0, 16)
+mainCorner.CornerRadius = UDim.new(0, 20)
 mainCorner.Parent = main
 
 local stroke = Instance.new("UIStroke")
-stroke.Thickness = 2
-stroke.Color = Color3.fromRGB(0,0,0)
-stroke.Transparency = 0.05
+stroke.Thickness = 1.5
+stroke.Color = Color3.fromRGB(255, 59, 48)
+stroke.Transparency = 0.08
 stroke.Parent = main
 
 local top = Instance.new("Frame")
@@ -383,6 +383,14 @@ top.Name = "TopBar"
 top.Size = UDim2.new(1, 0, 0, 55)
 top.BackgroundTransparency = 1
 top.Parent = main
+local topDivider = Instance.new("Frame")
+topDivider.Name = "TopDivider"
+topDivider.Position = UDim2.new(0, 14, 0, 55)
+topDivider.Size = UDim2.new(1, -28, 0, 1)
+topDivider.BackgroundColor3 = Color3.fromRGB(255, 59, 48)
+topDivider.BackgroundTransparency = 0.72
+topDivider.BorderSizePixel = 0
+topDivider.Parent = main
 
 local menuLogo = Instance.new("ImageLabel")
 menuLogo.Name = "MenuLogo"
@@ -400,7 +408,7 @@ local title = Instance.new("TextLabel")
 title.BackgroundTransparency = 1
 title.Position = UDim2.fromOffset(74, 3)
 title.Size = UDim2.new(1, -148, 0, 28)
-title.Font = Enum.Font.FredokaOne
+title.Font = Enum.Font.GothamBold
 title.Text = "CHG"
 title.TextSize = 22
 title.TextXAlignment = Enum.TextXAlignment.Center
@@ -413,17 +421,17 @@ titleGradient.Offset = Vector2.new(1.2, 0)
 titleGradient.Parent = title
 
 local CHGRed = Color3.fromRGB(255, 72, 72)
-local CHGWhite = Color3.fromRGB(255, 255, 255)
+local CHGSoft = Color3.fromRGB(255, 145, 145)
 
 -- CHG: seamless red -> white -> red -> white.
 -- Both ends are red so the loop can restart without a visible red snap.
 titleGradient.Color = ColorSequence.new({
     ColorSequenceKeypoint.new(0.00, CHGRed),
     ColorSequenceKeypoint.new(0.18, CHGRed),
-    ColorSequenceKeypoint.new(0.34, CHGWhite),
+    ColorSequenceKeypoint.new(0.34, CHGSoft),
     ColorSequenceKeypoint.new(0.50, CHGRed),
     ColorSequenceKeypoint.new(0.66, CHGRed),
-    ColorSequenceKeypoint.new(0.82, CHGWhite),
+    ColorSequenceKeypoint.new(0.82, CHGSoft),
     ColorSequenceKeypoint.new(1.00, CHGRed)
 })
 
@@ -442,7 +450,7 @@ local subtitle = Instance.new("TextLabel")
 subtitle.BackgroundTransparency = 1
 subtitle.Position = UDim2.new(0, 58, 0, 29)
 subtitle.Size = UDim2.new(1, -116, 0, 16)
-subtitle.Font = Enum.Font.FredokaOne
+subtitle.Font = Enum.Font.GothamMedium
 subtitle.Text = "SCRIPT HUB"
 subtitle.TextSize = 10
 subtitle.TextXAlignment = Enum.TextXAlignment.Center
@@ -451,25 +459,27 @@ subtitle.Parent = top
 
 local function topButton(text, x)
     local b = Instance.new("TextButton")
-    b.Size = UDim2.fromOffset(30, 28)
+    b.Size = UDim2.fromOffset(28, 28)
     b.Position = UDim2.new(1, x, 0, 8)
     b.AnchorPoint = Vector2.new(1, 0)
-    b.BackgroundColor3 = Color3.fromRGB(13, 27, 46)
+    b.BackgroundColor3 = Color3.fromRGB(43, 43, 47)
     b.BorderSizePixel = 0
     b.Text = text
-    b.Font = Enum.Font.FredokaOne
+    b.Font = Enum.Font.GothamMedium
     b.TextSize = 14
     b.TextColor3 = Color3.new(1,1,1)
     b.AutoButtonColor = false
     b.Parent = top
     local c = Instance.new("UICorner")
-    c.CornerRadius = UDim.new(0, 8)
+    c.CornerRadius = UDim.new(0, 14)
     c.Parent = b
     return b
 end
 
 local minimize = topButton("—", -52)
 local close = topButton("×", -8)
+minimize.BackgroundColor3 = Color3.fromRGB(43, 43, 47)
+close.BackgroundColor3 = Color3.fromRGB(112, 35, 42)
 
 -- Dedicated drag line OUTSIDE the main GUI, slightly below it.
 -- It follows the whole window and remains available while the GUI is open.
@@ -524,21 +534,18 @@ local resizeDragging = false
 local resizeStartInput
 local resizeStartSize
 
--- The MAIN GUI border itself is the animated perimeter.
--- No extra square/frame is created inside the GUI.
--- The existing outer stroke pulses black -> white -> black forever.
+-- Keep the main outline red with a soft iOS-style glow pulse.
 task.spawn(function()
     while gui.Parent and main.Parent do
-        stroke.Color = Color3.fromRGB(0,0,0)
-        stroke.Transparency = 0.05
-        local toWhite = tween(stroke, TweenInfo.new(0.85, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-            Color = Color3.fromRGB(255,255,255)
+        stroke.Color = Color3.fromRGB(255, 59, 48)
+        local dim = tween(stroke, TweenInfo.new(1.1, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+            Transparency = 0.30
         })
-        toWhite.Completed:Wait()
-        local toBlack = tween(stroke, TweenInfo.new(0.85, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-            Color = Color3.fromRGB(0,0,0)
+        dim.Completed:Wait()
+        local glow = tween(stroke, TweenInfo.new(1.1, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+            Transparency = 0.07
         })
-        toBlack.Completed:Wait()
+        glow.Completed:Wait()
     end
 end)
 
@@ -561,13 +568,18 @@ local sidebar = Instance.new("Frame")
 sidebar.Name = "Sidebar"
 sidebar.Position = UDim2.fromOffset(8, 61)
 sidebar.Size = UDim2.new(0, 98, 1, -69)
-sidebar.BackgroundColor3 = Color3.fromRGB(13, 27, 46)
+sidebar.BackgroundColor3 = Themes[ThemeIndex].Panel
 sidebar.BorderSizePixel = 0
 sidebar.Parent = main
 
 local sideCorner = Instance.new("UICorner")
-sideCorner.CornerRadius = UDim.new(0, 12)
+sideCorner.CornerRadius = UDim.new(0, 14)
 sideCorner.Parent = sidebar
+local sidebarStroke = Instance.new("UIStroke")
+sidebarStroke.Color = Color3.fromRGB(255, 59, 48)
+sidebarStroke.Thickness = 1
+sidebarStroke.Transparency = 0.82
+sidebarStroke.Parent = sidebar
 
 local sideLayout = Instance.new("UIListLayout")
 sideLayout.Padding = UDim.new(0, 7)
@@ -634,8 +646,13 @@ local function makeTab(text, icon)
     b.AutoButtonColor = false
     b.Parent = sidebar
     local c = Instance.new("UICorner")
-    c.CornerRadius = UDim.new(0, 9)
+    c.CornerRadius = UDim.new(0, 12)
     c.Parent = b
+    local tabStroke = Instance.new("UIStroke")
+    tabStroke.Color = Color3.fromRGB(255, 59, 48)
+    tabStroke.Thickness = 1
+    tabStroke.Transparency = 0.88
+    tabStroke.Parent = b
 
     local sweepBg = Instance.new("Frame")
     sweepBg.Name = "SelectedDarkBlueWhiteSweep"
@@ -666,7 +683,7 @@ local function makeTab(text, icon)
     label.BackgroundTransparency = 1
     label.Size = UDim2.fromScale(1, 1)
     label.Text = icon .. "  " .. text
-    label.Font = Enum.Font.FredokaOne
+    label.Font = Enum.Font.GothamMedium
     label.TextSize = 11
     label.TextColor3 = Color3.fromRGB(255,255,255)
     label.TextXAlignment = Enum.TextXAlignment.Left
@@ -761,24 +778,25 @@ end
 local function addScriptCard(parent, name, code)
     local card = Instance.new("Frame")
     card.Size = UDim2.new(1, -4, 0, 58)
-    card.BackgroundColor3 = Color3.fromRGB(13, 27, 46)
+    card.BackgroundColor3 = Themes[ThemeIndex].Panel
     card.BorderSizePixel = 0
     card.Parent = parent
 
     local c = Instance.new("UICorner")
-    c.CornerRadius = UDim.new(0, 10)
+    c.CornerRadius = UDim.new(0, 12)
     c.Parent = card
 
     local s = Instance.new("UIStroke")
-    s.Color = Color3.fromRGB(55,55,65)
-    s.Transparency = 0.5
+    s.Color = Color3.fromRGB(255, 59, 48)
+    s.Thickness = 1
+    s.Transparency = 0.84
     s.Parent = card
 
     local label = Instance.new("TextLabel")
     label.BackgroundTransparency = 1
     label.Position = UDim2.fromOffset(10, 7)
     label.Size = UDim2.new(1, -95, 0, 40)
-    label.Font = Enum.Font.FredokaOne
+    label.Font = Enum.Font.GothamMedium
     label.Text = name
     label.TextSize = 11
     label.TextWrapped = true
@@ -806,7 +824,7 @@ local function addScriptCard(parent, name, code)
     runBg.ZIndex = run.ZIndex
     runBg.Parent = run
     local runCorner = Instance.new("UICorner")
-    runCorner.CornerRadius = UDim.new(0, 8)
+    runCorner.CornerRadius = UDim.new(0, 10)
     runCorner.Parent = runBg
     local runGradient = Instance.new("UIGradient")
     runGradient.Name = "RunWhiteDarkRedSweep"
@@ -825,7 +843,7 @@ local function addScriptCard(parent, name, code)
     runLabel.BackgroundTransparency = 1
     runLabel.Size = UDim2.fromScale(1,1)
     runLabel.Text = "RUN"
-    runLabel.Font = Enum.Font.FredokaOne
+    runLabel.Font = Enum.Font.GothamMedium
     runLabel.TextSize = 10
     runLabel.TextColor3 = Color3.new(1,1,1)
     runLabel.ZIndex = run.ZIndex + 1
@@ -895,7 +913,7 @@ antiHitTitle.BackgroundTransparency = 1
 antiHitTitle.Position = UDim2.fromOffset(13, 5)
 antiHitTitle.Size = UDim2.new(1, -26, 0, 25)
 antiHitTitle.Text = "🛡  ANTI HIT"
-antiHitTitle.Font = Enum.Font.FredokaOne
+antiHitTitle.Font = Enum.Font.GothamMedium
 antiHitTitle.TextSize = 15
 antiHitTitle.TextColor3 = Color3.new(1,1,1)
 antiHitTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -907,7 +925,7 @@ antiHitStatus.BackgroundTransparency = 1
 antiHitStatus.Position = UDim2.fromOffset(14, 31)
 antiHitStatus.Size = UDim2.new(1, -28, 0, 18)
 antiHitStatus.Text = "OFF"
-antiHitStatus.Font = Enum.Font.FredokaOne
+antiHitStatus.Font = Enum.Font.GothamMedium
 antiHitStatus.TextSize = 10
 antiHitStatus.TextColor3 = Color3.fromRGB(255, 170, 175)
 antiHitStatus.TextXAlignment = Enum.TextXAlignment.Left
@@ -1010,7 +1028,7 @@ local function configLabel(text)
     l.Size = UDim2.new(1, -8, 0, 25)
     l.BackgroundTransparency = 1
     l.Text = text
-    l.Font = Enum.Font.FredokaOne
+    l.Font = Enum.Font.GothamMedium
     l.TextSize = 11
     l.TextColor3 = Color3.fromRGB(190,190,200)
     l.TextXAlignment = Enum.TextXAlignment.Left
@@ -1021,17 +1039,22 @@ end
 local function configButton(text)
     local b = Instance.new("TextButton")
     b.Size = UDim2.new(1, -8, 0, 38)
-    b.BackgroundColor3 = Color3.fromRGB(13, 27, 46)
+    b.BackgroundColor3 = Themes[ThemeIndex].Panel
     b.BorderSizePixel = 0
     b.Text = text
-    b.Font = Enum.Font.FredokaOne
+    b.Font = Enum.Font.GothamMedium
     b.TextSize = 11
     b.TextColor3 = Color3.new(1,1,1)
     b.AutoButtonColor = false
     b.Parent = configPage
     local c = Instance.new("UICorner")
-    c.CornerRadius = UDim.new(0, 9)
+    c.CornerRadius = UDim.new(0, 11)
     c.Parent = b
+    local configStroke = Instance.new("UIStroke")
+    configStroke.Color = Color3.fromRGB(255, 59, 48)
+    configStroke.Thickness = 1
+    configStroke.Transparency = 0.86
+    configStroke.Parent = b
     return b
 end
 
@@ -1094,14 +1117,14 @@ local function applyTheme(index)
     colorButton.Text = "Choose Color • " .. th.Name
     -- Keep the CHG title's own animated red/lilac sweep; theme changes do not reset it.
     tween(main, TweenInfo.new(0.2), {BackgroundColor3 = th.Main})
-    tween(stroke, TweenInfo.new(0.2), {Color = th.Accent})
+    tween(stroke, TweenInfo.new(0.2), {Color = Color3.fromRGB(255, 59, 48)})
     dragVisual.BackgroundColor3 = th.Accent
     resizeHandle.TextColor3 = th.Accent
     notificationBar.BackgroundColor3 = th.Accent
     notificationStroke.Color = th.Accent
-    openStroke.Color = Color3.fromRGB(255,255,255)
+    openStroke.Color = Color3.fromRGB(255, 59, 48)
     openButton.TextColor3 = Color3.fromRGB(255,255,255)
-    sidebar.BackgroundColor3 = th.Main
+    sidebar.BackgroundColor3 = th.Panel
     for _, b in pairs(tabButtons) do
         if b then
             b.BackgroundColor3 = th.Panel
@@ -1162,7 +1185,7 @@ for i, th in ipairs(Themes) do
     local b = Instance.new("TextButton")
     b.Name = th.Name
     b.Text = th.Name
-    b.Font = Enum.Font.FredokaOne
+    b.Font = Enum.Font.GothamMedium
     b.TextSize = 10
     b.TextColor3 = Color3.new(1,1,1)
     b.BackgroundColor3 = th.Accent
@@ -1311,17 +1334,17 @@ UIS.InputEnded:Connect(function(input)
     end
 end)
 
--- Floating circular VX button shown after minimizing/closing.
+-- Floating circular CHG button shown after minimizing/closing.
 local openButton = Instance.new("TextButton")
 openButton.Name = "OpenCHG"
 openButton.AnchorPoint = Vector2.new(1, 0.5)
 openButton.Position = UDim2.new(1, -18, 0.5, 0)
 openButton.Size = UDim2.fromOffset(64, 64)
-openButton.BackgroundColor3 = Color3.fromRGB(0,0,0)
+openButton.BackgroundColor3 = Color3.fromRGB(30, 22, 24)
 openButton.BorderSizePixel = 0
-openButton.Text = "VX"
-openButton.Font = Enum.Font.FredokaOne
-openButton.TextSize = 23
+openButton.Text = "CHG"
+openButton.Font = Enum.Font.GothamBold
+openButton.TextSize = 19
 openButton.TextColor3 = Color3.fromRGB(255,255,255)
 openButton.TextStrokeTransparency = 0.15
 openButton.TextStrokeColor3 = Color3.fromRGB(0,0,0)
@@ -1334,9 +1357,9 @@ local oc = Instance.new("UICorner")
 oc.CornerRadius = UDim.new(1, 0)
 oc.Parent = openButton
 local openStroke = Instance.new("UIStroke")
-openStroke.Thickness = 2
-openStroke.Color = Color3.fromRGB(255,255,255)
-openStroke.Transparency = 0.22
+openStroke.Thickness = 1.5
+openStroke.Color = Color3.fromRGB(255, 59, 48)
+openStroke.Transparency = 0.08
 openStroke.Parent = openButton
 local openInnerStroke = Instance.new("UIStroke")
 openInnerStroke.Thickness = 1
@@ -1345,15 +1368,15 @@ openInnerStroke.Transparency = 0.72
 openInnerStroke.Parent = openButton
 task.spawn(function()
     while gui.Parent and openButton.Parent do
-        openButton.BackgroundColor3 = Color3.fromRGB(0,0,0)
-        local toGray = tween(openButton, TweenInfo.new(0.85, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-            BackgroundColor3 = Color3.fromRGB(105,105,110)
+        openButton.BackgroundColor3 = Color3.fromRGB(30, 22, 24)
+        local toWarm = tween(openButton, TweenInfo.new(1.1, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+            BackgroundColor3 = Color3.fromRGB(52, 25, 30)
         })
-        toGray.Completed:Wait()
-        local toBlack = tween(openButton, TweenInfo.new(0.85, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-            BackgroundColor3 = Color3.fromRGB(0,0,0)
+        toWarm.Completed:Wait()
+        local toBase = tween(openButton, TweenInfo.new(1.1, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+            BackgroundColor3 = Color3.fromRGB(30, 22, 24)
         })
-        toBlack.Completed:Wait()
+        toBase.Completed:Wait()
     end
 end)
 
@@ -1421,25 +1444,25 @@ local minimized = false
 local savedSize = main.Size
 
 close.Activated:Connect(function() CHGPlayClick(); closeGui() end)
-local vxDragging = false
-local vxDragStart
-local vxStartPos
+local chgDragging = false
+local chgDragStart
+local chgStartPos
 openButton.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        vxDragging = true
-        vxDragStart = input.Position
-        vxStartPos = openButton.Position
+        chgDragging = true
+        chgDragStart = input.Position
+        chgStartPos = openButton.Position
     end
 end)
 UIS.InputChanged:Connect(function(input)
-    if vxDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-        local d = input.Position - vxDragStart
-        openButton.Position = UDim2.new(vxStartPos.X.Scale, vxStartPos.X.Offset + d.X, vxStartPos.Y.Scale, vxStartPos.Y.Offset + d.Y)
+    if chgDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local d = input.Position - chgDragStart
+        openButton.Position = UDim2.new(chgStartPos.X.Scale, chgStartPos.X.Offset + d.X, chgStartPos.Y.Scale, chgStartPos.Y.Offset + d.Y)
     end
 end)
 UIS.InputEnded:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        vxDragging = false
+        chgDragging = false
     end
 end)
 
@@ -1562,7 +1585,7 @@ local notificationText = Instance.new("TextLabel")
 notificationText.BackgroundTransparency = 1
 notificationText.Position = UDim2.fromOffset(20, 0)
 notificationText.Size = UDim2.new(1, -30, 1, 0)
-notificationText.Font = Enum.Font.FredokaOne
+notificationText.Font = Enum.Font.GothamMedium
 notificationText.Text = "Thanks for all support guys :)"
 notificationText.TextSize = 12
 notificationText.TextColor3 = Color3.new(1,1,1)
@@ -1748,7 +1771,7 @@ local introStatus = Instance.new("TextLabel")
 introStatus.BackgroundTransparency = 1
 introStatus.Size = UDim2.new(1,-30,0,18)
 introStatus.Position = UDim2.fromOffset(15,91)
-introStatus.Font = Enum.Font.FredokaOne
+introStatus.Font = Enum.Font.GothamMedium
 introStatus.Text = "CHG • INITIALIZING"
 introStatus.TextSize = 10
 introStatus.TextColor3 = Color3.fromRGB(150,150,160)
