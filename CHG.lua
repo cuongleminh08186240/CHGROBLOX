@@ -349,8 +349,8 @@ shadow.Name = "Shadow"
 shadow.AnchorPoint = Vector2.new(0.5, 0.5)
 shadow.Position = UDim2.fromScale(0.5, 0.52)
 shadow.Size = Sizes[SizeIndex]
-shadow.BackgroundColor3 = Color3.new(0,0,0)
-shadow.BackgroundTransparency = 0.45
+shadow.BackgroundColor3 = Color3.fromRGB(94, 94, 108)
+shadow.BackgroundTransparency = 0.84
 shadow.BorderSizePixel = 0
 shadow.Parent = gui
 
@@ -487,8 +487,8 @@ local dragHandle = Instance.new("TextButton")
 dragHandle.Name = "CHGDragHandle"
 dragHandle.AnchorPoint = Vector2.new(0.5, 0.5)
 dragHandle.Size = UDim2.fromOffset(110, 16)
-dragHandle.BackgroundColor3 = Color3.fromRGB(235, 235, 240)
-dragHandle.BackgroundTransparency = 1
+dragHandle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+dragHandle.BackgroundTransparency = 0.94
 dragHandle.BorderSizePixel = 0
 dragHandle.Text = ""
 dragHandle.AutoButtonColor = false
@@ -501,8 +501,8 @@ dragVisual.Name = "Line"
 dragVisual.AnchorPoint = Vector2.new(0.5, 0.5)
 dragVisual.Position = UDim2.fromScale(0.5, 0.5)
 dragVisual.Size = UDim2.fromOffset(76, 3)
-dragVisual.BackgroundColor3 = Themes[ThemeIndex].Accent
-dragVisual.BackgroundTransparency = 0.10
+dragVisual.BackgroundColor3 = Color3.fromRGB(248, 248, 252)
+dragVisual.BackgroundTransparency = 0.03
 dragVisual.BorderSizePixel = 0
 dragVisual.ZIndex = 61
 dragVisual.Parent = dragHandle
@@ -513,6 +513,11 @@ dragVisualCorner.Parent = dragVisual
 local dragCorner = Instance.new("UICorner")
 dragCorner.CornerRadius = UDim.new(1, 0)
 dragCorner.Parent = dragHandle
+local dragStroke = Instance.new("UIStroke")
+dragStroke.Color = Color3.fromRGB(255, 255, 255)
+dragStroke.Transparency = 0.78
+dragStroke.Thickness = 1
+dragStroke.Parent = dragHandle
 
 -- Bottom-right resize handle. It stays OUTSIDE the GUI and follows it exactly.
 local resizeHandle = Instance.new("TextButton")
@@ -871,79 +876,79 @@ local function addScriptCard(parent, name, code)
 end
 
 -- ============================================================
--- CHG ANTI-HIT
--- Replaced the old script library with the Anti-Hit feature.
--- Route logic is based on the supplied CHG Anti-Hit source.
+-- CHG TELEPORT ROUTE
+-- Replaced the old script library with the Teleport Route feature.
+-- Route logic is based on the supplied CHG Teleport Route source.
 -- ============================================================
 
 local ProximityPromptService = game:GetService("ProximityPromptService")
 
-local AntiHitEnabled = false
-local IsAntiHitRunning = false
-local ANTI_HIT_SPEED = 0.005
+local TeleportRouteEnabled = false
+local IsTeleportRouteRunning = false
+local TELEPORT_ROUTE_SPEED = 0.005
 
-local antiHitCard = Instance.new("TextButton")
-antiHitCard.Name = "AntiHit"
-antiHitCard.Size = UDim2.new(1, -8, 0, 58)
-antiHitCard.BackgroundColor3 = Themes[ThemeIndex].ButtonDark
-antiHitCard.BorderSizePixel = 0
-antiHitCard.Text = ""
-antiHitCard.AutoButtonColor = false
-antiHitCard.Parent = scriptsPage
+local teleportRouteCard = Instance.new("TextButton")
+teleportRouteCard.Name = "TeleportRoute"
+teleportRouteCard.Size = UDim2.new(1, -8, 0, 58)
+teleportRouteCard.BackgroundColor3 = Themes[ThemeIndex].ButtonDark
+teleportRouteCard.BorderSizePixel = 0
+teleportRouteCard.Text = ""
+teleportRouteCard.AutoButtonColor = false
+teleportRouteCard.Parent = scriptsPage
 
-local antiHitCorner = Instance.new("UICorner")
-antiHitCorner.CornerRadius = UDim.new(0, 11)
-antiHitCorner.Parent = antiHitCard
+local teleportRouteCorner = Instance.new("UICorner")
+teleportRouteCorner.CornerRadius = UDim.new(0, 11)
+teleportRouteCorner.Parent = teleportRouteCard
 
-local antiHitSweep = Instance.new("UIGradient")
-antiHitSweep.Name = "AntiHitSweep"
-antiHitSweep.Rotation = 0
-antiHitSweep.Offset = Vector2.new(1.15, 0)
-antiHitSweep.Color = ColorSequence.new({
+local teleportRouteSweep = Instance.new("UIGradient")
+teleportRouteSweep.Name = "TeleportRouteSweep"
+teleportRouteSweep.Rotation = 0
+teleportRouteSweep.Offset = Vector2.new(1.15, 0)
+teleportRouteSweep.Color = ColorSequence.new({
     ColorSequenceKeypoint.new(0.00, Color3.fromRGB(105, 8, 18)),
     ColorSequenceKeypoint.new(0.40, Color3.fromRGB(105, 8, 18)),
     ColorSequenceKeypoint.new(0.50, Color3.fromRGB(255,255,255)),
     ColorSequenceKeypoint.new(0.60, Color3.fromRGB(105, 8, 18)),
     ColorSequenceKeypoint.new(1.00, Color3.fromRGB(105, 8, 18))
 })
-antiHitSweep.Parent = antiHitCard
+teleportRouteSweep.Parent = teleportRouteCard
 
-local antiHitTitle = Instance.new("TextLabel")
-antiHitTitle.BackgroundTransparency = 1
-antiHitTitle.Position = UDim2.fromOffset(13, 5)
-antiHitTitle.Size = UDim2.new(1, -26, 0, 25)
-antiHitTitle.Text = "🛡  ANTI HIT"
-antiHitTitle.Font = Enum.Font.GothamMedium
-antiHitTitle.TextSize = 15
-antiHitTitle.TextColor3 = Color3.new(1,1,1)
-antiHitTitle.TextXAlignment = Enum.TextXAlignment.Left
-antiHitTitle.ZIndex = antiHitCard.ZIndex + 2
-antiHitTitle.Parent = antiHitCard
+local teleportRouteTitle = Instance.new("TextLabel")
+teleportRouteTitle.BackgroundTransparency = 1
+teleportRouteTitle.Position = UDim2.fromOffset(13, 5)
+teleportRouteTitle.Size = UDim2.new(1, -26, 0, 25)
+teleportRouteTitle.Text = "↗  TELEPORT ROUTE"
+teleportRouteTitle.Font = Enum.Font.GothamMedium
+teleportRouteTitle.TextSize = 15
+teleportRouteTitle.TextColor3 = Color3.new(1,1,1)
+teleportRouteTitle.TextXAlignment = Enum.TextXAlignment.Left
+teleportRouteTitle.ZIndex = teleportRouteCard.ZIndex + 2
+teleportRouteTitle.Parent = teleportRouteCard
 
-local antiHitStatus = Instance.new("TextLabel")
-antiHitStatus.BackgroundTransparency = 1
-antiHitStatus.Position = UDim2.fromOffset(14, 31)
-antiHitStatus.Size = UDim2.new(1, -28, 0, 18)
-antiHitStatus.Text = "OFF"
-antiHitStatus.Font = Enum.Font.GothamMedium
-antiHitStatus.TextSize = 10
-antiHitStatus.TextColor3 = Color3.fromRGB(255, 170, 175)
-antiHitStatus.TextXAlignment = Enum.TextXAlignment.Left
-antiHitStatus.ZIndex = antiHitCard.ZIndex + 2
-antiHitStatus.Parent = antiHitCard
+local teleportRouteStatus = Instance.new("TextLabel")
+teleportRouteStatus.BackgroundTransparency = 1
+teleportRouteStatus.Position = UDim2.fromOffset(14, 31)
+teleportRouteStatus.Size = UDim2.new(1, -28, 0, 18)
+teleportRouteStatus.Text = "OFF"
+teleportRouteStatus.Font = Enum.Font.GothamMedium
+teleportRouteStatus.TextSize = 10
+teleportRouteStatus.TextColor3 = Color3.fromRGB(255, 170, 175)
+teleportRouteStatus.TextXAlignment = Enum.TextXAlignment.Left
+teleportRouteStatus.ZIndex = teleportRouteCard.ZIndex + 2
+teleportRouteStatus.Parent = teleportRouteCard
 
-local AntiHitPositiveSound = Instance.new("Sound")
-AntiHitPositiveSound.Name = "AntiHitEnabledSound"
-AntiHitPositiveSound.SoundId = "rbxassetid://6026984224"
-AntiHitPositiveSound.Volume = 0.42
-AntiHitPositiveSound.PlaybackSpeed = 1.25
-AntiHitPositiveSound.Parent = CHGSoundFolder
+local TeleportRouteSound = Instance.new("Sound")
+TeleportRouteSound.Name = "TeleportRouteEnabledSound"
+TeleportRouteSound.SoundId = "rbxassetid://6026984224"
+TeleportRouteSound.Volume = 0.42
+TeleportRouteSound.PlaybackSpeed = 1.25
+TeleportRouteSound.Parent = CHGSoundFolder
 
-local antiHitSweepToken = 0
-local function startAntiHitVisual(enabled)
-    antiHitSweepToken += 1
-    local token = antiHitSweepToken
-    antiHitSweep.Color = ColorSequence.new({
+local teleportRouteSweepToken = 0
+local function startTeleportRouteVisual(enabled)
+    teleportRouteSweepToken += 1
+    local token = teleportRouteSweepToken
+    teleportRouteSweep.Color = ColorSequence.new({
         ColorSequenceKeypoint.new(0.00, enabled and Color3.fromRGB(35, 170, 75) or Color3.fromRGB(105, 8, 18)),
         ColorSequenceKeypoint.new(0.40, enabled and Color3.fromRGB(35, 170, 75) or Color3.fromRGB(105, 8, 18)),
         ColorSequenceKeypoint.new(0.50, Color3.fromRGB(255,255,255)),
@@ -951,77 +956,138 @@ local function startAntiHitVisual(enabled)
         ColorSequenceKeypoint.new(1.00, enabled and Color3.fromRGB(35, 170, 75) or Color3.fromRGB(105, 8, 18))
     })
     task.spawn(function()
-        while gui.Parent and antiHitCard.Parent and antiHitSweepToken == token do
-            antiHitSweep.Offset = Vector2.new(1.15, 0)
-            local tw = tween(antiHitSweep, TweenInfo.new(1.45, Enum.EasingStyle.Linear), {Offset = Vector2.new(-1.15, 0)})
+        while gui.Parent and teleportRouteCard.Parent and teleportRouteSweepToken == token do
+            teleportRouteSweep.Offset = Vector2.new(1.15, 0)
+            local tw = tween(teleportRouteSweep, TweenInfo.new(1.45, Enum.EasingStyle.Linear), {Offset = Vector2.new(-1.15, 0)})
             tw.Completed:Wait()
         end
     end)
 end
 
-local function setAntiHitVisual(enabled)
+local function setTeleportRouteVisual(enabled)
     if enabled then
-        antiHitStatus.Text = "ON"
-        antiHitStatus.TextColor3 = Color3.fromRGB(110,255,145)
-        antiHitCard.BackgroundColor3 = Color3.fromRGB(35,170,75)
+        teleportRouteStatus.Text = "ON"
+        teleportRouteStatus.TextColor3 = Color3.fromRGB(110,255,145)
+        teleportRouteCard.BackgroundColor3 = Color3.fromRGB(35,170,75)
         -- The click sound already fires immediately when the button is pressed.
         -- Do not add a second delayed sound here.
     else
-        antiHitStatus.Text = "OFF"
-        antiHitStatus.TextColor3 = Color3.fromRGB(255,170,175)
-        antiHitCard.BackgroundColor3 = Color3.fromRGB(105,8,18)
+        teleportRouteStatus.Text = "OFF"
+        teleportRouteStatus.TextColor3 = Color3.fromRGB(255,170,175)
+        teleportRouteCard.BackgroundColor3 = Color3.fromRGB(105,8,18)
     end
-    startAntiHitVisual(enabled)
+    startTeleportRouteVisual(enabled)
 end
 
-local TeleportPoints = {
-    Vector3.new(500.62, 241.28, -366.64),
-    Vector3.new(504.45, 155.80, -366.35),
-    Vector3.new(508.30, 70.28, -366.03),
-    Vector3.new(513.86, 70.28, -366.25),
-    Vector3.new(519.43, 70.28, -366.47),
-    Vector3.new(524.32, 70.28, -366.59),
-    Vector3.new(529.22, 70.28, -366.71),
-    Vector3.new(538.01, 70.28, -365.55),
-    Vector3.new(546.80, 70.28, -364.40)
+-- Editable route configuration.
+-- Speed is the delay between points; lower values move faster.
+local TeleportRouteConfig = {
+    Speed = 0, -- ULTRA: task.wait(0) giữa các điểm
+    Points = {
+        Vector3.new(500.62, 241.28, -366.64),
+        Vector3.new(504.45, 155.80, -366.35),
+        Vector3.new(508.30, 70.28, -366.03),
+        Vector3.new(513.86, 70.28, -366.25),
+        Vector3.new(519.43, 70.28, -366.47),
+        Vector3.new(524.32, 70.28, -366.59),
+        Vector3.new(529.22, 70.28, -366.71),
+        Vector3.new(538.01, 70.28, -365.55),
+        Vector3.new(546.80, 70.28, -364.40)
+    }
 }
 
-local function TeleportRoute(character)
-    if not character then return end
-    local root = character:FindFirstChild("HumanoidRootPart")
-    if not root then return end
-    IsAntiHitRunning = true
-    for _, position in ipairs(TeleportPoints) do
-        if not AntiHitEnabled or not root.Parent then
-            IsAntiHitRunning = false
-            return
-        end
-        root.CFrame = CFrame.new(position)
-        task.wait(ANTI_HIT_SPEED)
-    end
-    IsAntiHitRunning = false
+local TeleportRouteDefaultSpeed = TeleportRouteConfig.Speed
+local TeleportRouteDefaultPoints = table.clone(TeleportRouteConfig.Points)
+local TeleportRouteRunToken = 0
+
+local function cancelTeleportRoute()
+    TeleportRouteRunToken += 1
+    IsTeleportRouteRunning = false
 end
 
-antiHitCard.InputBegan:Connect(function(input)
+local function TeleportRoute(character)
+    if not TeleportRouteEnabled or not character or not character.Parent then return end
+    local root = character:FindFirstChild("HumanoidRootPart")
+    if not root or not root:IsA("BasePart") then return end
+
+    TeleportRouteRunToken += 1
+    local runToken = TeleportRouteRunToken
+    IsTeleportRouteRunning = true
+
+    for _, position in ipairs(TeleportRouteConfig.Points) do
+        if runToken ~= TeleportRouteRunToken
+            or not TeleportRouteEnabled
+            or not character.Parent
+            or not root.Parent
+            or not Player.Character
+            or Player.Character ~= character then
+            IsTeleportRouteRunning = false
+            return
+        end
+
+        local ok = pcall(function()
+            root.CFrame = CFrame.new(position)
+        end)
+        if not ok then
+            IsTeleportRouteRunning = false
+            return
+        end
+        task.wait(math.max(0, tonumber(TeleportRouteConfig.Speed) or TeleportRouteDefaultSpeed))
+    end
+
+    if runToken == TeleportRouteRunToken then
+        IsTeleportRouteRunning = false
+    end
+end
+
+teleportRouteCard.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        -- Sound and visual state begin on the exact press, not on release.
         CHGPlayClick(1.0, 0.30)
-        AntiHitEnabled = not AntiHitEnabled
-        setAntiHitVisual(AntiHitEnabled)
+        TeleportRouteEnabled = not TeleportRouteEnabled
+        if not TeleportRouteEnabled then
+            cancelTeleportRoute()
+        end
+        setTeleportRouteVisual(TeleportRouteEnabled)
     end
 end)
 
 ProximityPromptService.PromptTriggered:Connect(function(prompt, player)
     if player ~= Player then return end
-    if not AntiHitEnabled or IsAntiHitRunning then return end
+    if not TeleportRouteEnabled or IsTeleportRouteRunning then return end
     local character = Player.Character
-    if not character then return end
+    if not character or not character.Parent then return end
     task.spawn(function()
         TeleportRoute(character)
     end)
 end)
 
-setAntiHitVisual(false)
+Player.CharacterAdded:Connect(function()
+    cancelTeleportRoute()
+end)
+
+setTeleportRouteVisual(false)
+
+configLabel("TELEPORT ROUTE CONFIG")
+
+local routeSpeedValues = {0, 0.0005, 0.001, 0.005}
+local routeSpeedLabels = {"ULTRA", "0.0005s", "0.001s", "0.005s"}
+local routeSpeedIndex = 1
+local routeSpeedButton = configButton("Route speed: ULTRA")
+routeSpeedButton.Activated:Connect(function()
+    CHGPlayClick()
+    routeSpeedIndex = routeSpeedIndex % #routeSpeedValues + 1
+    TeleportRouteConfig.Speed = routeSpeedValues[routeSpeedIndex]
+    routeSpeedButton.Text = "Route speed: " .. routeSpeedLabels[routeSpeedIndex]
+end)
+
+local routeResetButton = configButton("Reset route coordinates")
+routeResetButton.Activated:Connect(function()
+    CHGPlayClick()
+    TeleportRouteConfig.Speed = TeleportRouteDefaultSpeed
+    TeleportRouteConfig.Points = table.clone(TeleportRouteDefaultPoints)
+    routeSpeedIndex = 1
+    routeSpeedButton.Text = "Route speed: " .. routeSpeedLabels[routeSpeedIndex]
+end)
 
 local function configLabel(text)
     local l = Instance.new("TextLabel")
@@ -1144,10 +1210,10 @@ local function applyTheme(index)
             end
         end
     end
-    if antiHitCard and antiHitCard.Parent then
-        -- Anti-Hit keeps its own red/green state colors; only its outline follows the theme.
-        local antiStroke = antiHitCard:FindFirstChildOfClass("UIStroke")
-        if antiStroke then antiStroke.Color = th.Accent end
+    if teleportRouteCard and teleportRouteCard.Parent then
+        -- Teleport Route keeps its own red/green state colors; only its outline follows the theme.
+        local teleportRouteStroke = teleportRouteCard:FindFirstChildOfClass("UIStroke")
+        if teleportRouteStroke then teleportRouteStroke.Color = th.Accent end
     end
     for _, page in pairs(pages) do
         page.ScrollBarImageColor3 = th.Accent
@@ -1228,7 +1294,7 @@ local function beginDrag(input, source)
     if source == dragHandle then
         tween(dragHandle, TweenInfo.new(0.10, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
             Size = UDim2.fromOffset(136, 22),
-            BackgroundTransparency = 1
+            BackgroundTransparency = 0.90
         })
         tween(dragVisual, TweenInfo.new(0.10, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
             Size = UDim2.fromOffset(108, 6),
@@ -1266,7 +1332,7 @@ local function endDrag(input)
     if dragSource == dragHandle then
         tween(dragHandle, TweenInfo.new(0.16, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
             Size = UDim2.fromOffset(110, 16),
-            BackgroundTransparency = 1
+            BackgroundTransparency = 0.94
         })
         tween(dragVisual, TweenInfo.new(0.16, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
             Size = UDim2.fromOffset(76, 3),
@@ -1432,7 +1498,7 @@ local function openGui()
     mainScale.Scale = 0.72
     shadowScale.Scale = 0.72
     main.BackgroundTransparency = 0
-    shadow.BackgroundTransparency = 0.45
+    shadow.BackgroundTransparency = 0.84
     dragHandle.Visible = true
     resizeHandle.Visible = true
     updateFloatingControls()
@@ -1482,7 +1548,7 @@ openButton.Activated:Connect(function()
         mainScale.Scale = 0.72
         shadowScale.Scale = 0.72
         main.BackgroundTransparency = 0
-        shadow.BackgroundTransparency = 0.45
+        shadow.BackgroundTransparency = 0.84
         tween(main, TweenInfo.new(0.30, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size = savedSize})
         tween(shadow, TweenInfo.new(0.30, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size = savedSize})
         tween(mainScale, TweenInfo.new(0.30, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1})
@@ -1515,7 +1581,7 @@ minimize.Activated:Connect(function()
         mainScale.Scale = 0.72
         shadowScale.Scale = 0.72
         main.BackgroundTransparency = 0
-        shadow.BackgroundTransparency = 0.45
+        shadow.BackgroundTransparency = 0.84
         tween(main, TweenInfo.new(0.28, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size = savedSize})
         tween(shadow, TweenInfo.new(0.28, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size = savedSize})
         tween(mainScale, TweenInfo.new(0.30, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1})
@@ -1828,7 +1894,7 @@ CHGPlayClick(1.35,0.24)
 mainScale.Scale = 0.78
 shadowScale.Scale = 0.78
 main.BackgroundTransparency = 0
-shadow.BackgroundTransparency = 0.45
+shadow.BackgroundTransparency = 0.84
 local handoff = TweenInfo.new(0.52, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
 tween(mainScale, handoff, {Scale=1})
 tween(shadowScale, handoff, {Scale=1})
