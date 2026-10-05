@@ -353,6 +353,7 @@ shadow.BackgroundColor3 = Color3.fromRGB(94, 94, 108)
 shadow.BackgroundTransparency = 0.84
 shadow.BorderSizePixel = 0
 shadow.Parent = gui
+shadow.Visible = false
 
 local shadowCorner = Instance.new("UICorner")
 shadowCorner.CornerRadius = UDim.new(0, 20)
@@ -367,6 +368,7 @@ main.BackgroundColor3 = Themes[ThemeIndex].Main
 main.BorderSizePixel = 0
 main.ClipsDescendants = true
 main.Parent = gui
+main.Visible = false
 
 local mainCorner = Instance.new("UICorner")
 mainCorner.CornerRadius = UDim.new(0, 20)
@@ -492,6 +494,7 @@ dragHandle.BackgroundTransparency = 0.94
 dragHandle.BorderSizePixel = 0
 dragHandle.Text = ""
 dragHandle.AutoButtonColor = false
+dragHandle.Active = true
 dragHandle.ZIndex = 60
 dragHandle.Visible = false
 dragHandle.Parent = gui
@@ -1067,28 +1070,6 @@ end)
 
 setTeleportRouteVisual(false)
 
-configLabel("TELEPORT ROUTE CONFIG")
-
-local routeSpeedValues = {0, 0.0005, 0.001, 0.005}
-local routeSpeedLabels = {"ULTRA", "0.0005s", "0.001s", "0.005s"}
-local routeSpeedIndex = 1
-local routeSpeedButton = configButton("Route speed: ULTRA")
-routeSpeedButton.Activated:Connect(function()
-    CHGPlayClick()
-    routeSpeedIndex = routeSpeedIndex % #routeSpeedValues + 1
-    TeleportRouteConfig.Speed = routeSpeedValues[routeSpeedIndex]
-    routeSpeedButton.Text = "Route speed: " .. routeSpeedLabels[routeSpeedIndex]
-end)
-
-local routeResetButton = configButton("Reset route coordinates")
-routeResetButton.Activated:Connect(function()
-    CHGPlayClick()
-    TeleportRouteConfig.Speed = TeleportRouteDefaultSpeed
-    TeleportRouteConfig.Points = table.clone(TeleportRouteDefaultPoints)
-    routeSpeedIndex = 1
-    routeSpeedButton.Text = "Route speed: " .. routeSpeedLabels[routeSpeedIndex]
-end)
-
 local function configLabel(text)
     local l = Instance.new("TextLabel")
     l.Size = UDim2.new(1, -8, 0, 25)
@@ -1123,6 +1104,28 @@ local function configButton(text)
     configStroke.Parent = b
     return b
 end
+
+configLabel("TELEPORT ROUTE CONFIG")
+
+local routeSpeedValues = {0, 0.0005, 0.001, 0.005}
+local routeSpeedLabels = {"ULTRA", "0.0005s", "0.001s", "0.005s"}
+local routeSpeedIndex = 1
+local routeSpeedButton = configButton("Route speed: ULTRA")
+routeSpeedButton.Activated:Connect(function()
+    CHGPlayClick()
+    routeSpeedIndex = routeSpeedIndex % #routeSpeedValues + 1
+    TeleportRouteConfig.Speed = routeSpeedValues[routeSpeedIndex]
+    routeSpeedButton.Text = "Route speed: " .. routeSpeedLabels[routeSpeedIndex]
+end)
+
+local routeResetButton = configButton("Reset route coordinates")
+routeResetButton.Activated:Connect(function()
+    CHGPlayClick()
+    TeleportRouteConfig.Speed = TeleportRouteDefaultSpeed
+    TeleportRouteConfig.Points = table.clone(TeleportRouteDefaultPoints)
+    routeSpeedIndex = 1
+    routeSpeedButton.Text = "Route speed: " .. routeSpeedLabels[routeSpeedIndex]
+end)
 
 configLabel("GUI SIZE")
 
@@ -1350,6 +1353,14 @@ dragHandle.InputBegan:Connect(function(input)
     end
 end)
 
+top.Active = true
+top.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+    or input.UserInputType == Enum.UserInputType.Touch then
+        beginDrag(input, top)
+    end
+end)
+
 -- Mobile drag follows the finger 1:1; no snapping or automatic repositioning while dragging.
 UIS.InputChanged:Connect(function(input)
     if dragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
@@ -1415,6 +1426,7 @@ openButton.TextColor3 = Color3.fromRGB(255,255,255)
 openButton.TextStrokeTransparency = 0.15
 openButton.TextStrokeColor3 = Color3.fromRGB(0,0,0)
 openButton.AutoButtonColor = false
+openButton.Active = true
 openButton.Visible = false
 openButton.ZIndex = 85
 openButton.Parent = gui
