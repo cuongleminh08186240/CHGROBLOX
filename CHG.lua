@@ -1105,6 +1105,43 @@ local function configButton(text)
     return b
 end
 
+configLabel("PLAYER SPEED TEST")
+
+local speedValues = {16, 24, 32, 300}
+local speedIndex = 1
+local speedButton = configButton("Player speed: 16")
+
+local function applyTestSpeed()
+    local speed = speedValues[speedIndex]
+    speedButton.Text = "Player speed: " .. tostring(speed)
+    local speedRemote = ReplicatedStorage:FindFirstChild("CHGSetSpeed")
+    if speedRemote and speedRemote:IsA("RemoteEvent") then
+        -- Preferred path for the user's own game: server-authoritative speed.
+        speedRemote:FireServer(speed)
+    else
+        -- Local fallback for quick Studio testing when the server script is absent.
+        local character = Player.Character
+        local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.WalkSpeed = speed
+            speedButton.Text = "Player speed: " .. tostring(speed) .. " (local)"
+        else
+            speedButton.Text = "Character not ready"
+        end
+    end
+end
+
+speedButton.Activated:Connect(function()
+    CHGPlayClick()
+    speedIndex = speedIndex % #speedValues + 1
+    applyTestSpeed()
+end)
+
+Player.CharacterAdded:Connect(function()
+    task.wait(0.25)
+    applyTestSpeed()
+end)
+
 configLabel("TELEPORT ROUTE CONFIG")
 
 local routeSpeedValues = {0, 0.0005, 0.001, 0.005}
