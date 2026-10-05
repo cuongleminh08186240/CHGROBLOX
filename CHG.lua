@@ -1,3 +1,12 @@
+-- ======================================================
+-- VIREX INTRO LOADER • EPIC MOBILE EDITION
+-- The uploaded Virex Hub Intro source runs first.
+-- ======================================================
+local VIREX_INTRO_SOURCE = [=[
+-- ======================================================
+--                 VIREX HUB - INTRO SCRIPT
+--                 Theme: Minimalist Black & White
+-- ======================================================
 
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
@@ -121,19 +130,19 @@ Title.Font = Enum.Font.FredokaOne
 Title.TextSize = 20
 Title.Parent = Card
 
--- Discord Link Text
-local DiscordText = Instance.new("TextLabel")
-DiscordText.Name = "DiscordText"
-DiscordText.AnchorPoint = Vector2.new(0.5, 0)
-DiscordText.Position = UDim2.new(0.5, 0, 0.56, 0)
-DiscordText.Size = UDim2.new(0.9, 0, 0, 18)
-DiscordText.BackgroundTransparency = 1
-DiscordText.Text = "discord.gg/virexs • Link Copied"
-DiscordText.TextColor3 = Color3.fromRGB(160, 160, 165)
-DiscordText.TextTransparency = 1
-DiscordText.Font = Enum.Font.FredokaOne
-DiscordText.TextSize = 12
-DiscordText.Parent = Card
+-- Telegram Link Text
+local TelegramText = Instance.new("TextLabel")
+TelegramText.Name = "TelegramText"
+TelegramText.AnchorPoint = Vector2.new(0.5, 0)
+TelegramText.Position = UDim2.new(0.5, 0, 0.56, 0)
+TelegramText.Size = UDim2.new(0.9, 0, 0, 18)
+TelegramText.BackgroundTransparency = 1
+TelegramText.Text = "t.me/CHGPINGPRX • Link Copied"
+TelegramText.TextColor3 = Color3.fromRGB(160, 160, 165)
+TelegramText.TextTransparency = 1
+TelegramText.Font = Enum.Font.FredokaOne
+TelegramText.TextSize = 12
+TelegramText.Parent = Card
 
 -- Progress Bar Background
 local ProgressBg = Instance.new("Frame")
@@ -200,7 +209,7 @@ task.wait(0.15)
 -- 3. Fade elements in
 TweenService:Create(Logo, tweenFast, {ImageTransparency = 0}):Play()
 TweenService:Create(Title, tweenFast, {TextTransparency = 0}):Play()
-TweenService:Create(DiscordText, tweenFast, {TextTransparency = 0}):Play()
+TweenService:Create(TelegramText, tweenFast, {TextTransparency = 0}):Play()
 TweenService:Create(ProgressBg, tweenFast, {BackgroundTransparency = 0}):Play()
 TweenService:Create(ProgressFill, tweenFast, {BackgroundTransparency = 0}):Play()
 TweenService:Create(Status, tweenFast, {TextTransparency = 0}):Play()
@@ -232,7 +241,7 @@ TweenService:Create(CardStroke, tweenOut, {Transparency = 1}):Play()
 TweenService:Create(DarkOverlay, tweenOut, {BackgroundTransparency = 1}):Play()
 TweenService:Create(Logo, tweenOut, {ImageTransparency = 1}):Play()
 TweenService:Create(Title, tweenOut, {TextTransparency = 1}):Play()
-TweenService:Create(DiscordText, tweenOut, {TextTransparency = 1}):Play()
+TweenService:Create(TelegramText, tweenOut, {TextTransparency = 1}):Play()
 TweenService:Create(ProgressBg, tweenOut, {BackgroundTransparency = 1}):Play()
 TweenService:Create(ProgressFill, tweenOut, {BackgroundTransparency = 1}):Play()
 TweenService:Create(Status, tweenOut, {TextTransparency = 1}):Play()
@@ -249,6 +258,9 @@ ScreenGui:Destroy()
 -- loadstring(game:HttpGet("YOUR_MAIN_HUB_SCRIPT_URL_HERE"))()
 
 ]=]
+
+-- Replace this placeholder with the numeric asset ID after uploading the logo to Roblox.
+local ASSET_LOGO = "rbxassetid://YOUR_ROBLOX_IMAGE_ASSET_ID"
 
 --[[
     VIREX SCRIPT HUB
@@ -379,6 +391,17 @@ top.Name = "TopBar"
 top.Size = UDim2.new(1, 0, 0, 55)
 top.BackgroundTransparency = 1
 top.Parent = main
+local menuLogo = Instance.new("ImageLabel")
+menuLogo.Name = "MenuLogo"
+menuLogo.Position = UDim2.fromOffset(14, 9)
+menuLogo.Size = UDim2.fromOffset(36, 36)
+menuLogo.BackgroundTransparency = 1
+menuLogo.Image = ASSET_LOGO
+menuLogo.ScaleType = Enum.ScaleType.Fit
+menuLogo.Parent = top
+local menuLogoCorner = Instance.new("UICorner")
+menuLogoCorner.CornerRadius = UDim.new(0, 8)
+menuLogoCorner.Parent = menuLogo
 
 local title = Instance.new("TextLabel")
 title.BackgroundTransparency = 1
